@@ -109,7 +109,6 @@ let printAST tree =
      | Minus -> " - "
      | Mult -> " x "
      | Div -> " / ") in
-  let getOp tree = match tree with Binary(op, l, r) -> op | _ -> failwith("Error in printAST() in getOp()")in
   
   let rec printAST_aux tree previousOp =
     match tree with
@@ -118,18 +117,16 @@ let printAST tree =
     | Unary(t) -> "~"^(printAST_aux t previousOp)
     | Binary(op, l, r) ->
        (
-         let resString = 
-           (printAST_aux l op) ^ (opToString op) ^ (printAST_aux r op)
-         in
+         let resString = (printAST_aux l op) ^ (opToString op) ^ (printAST_aux r op) in
 
-         if(op != previousOp)
+         if(op != previousOp || op = Div)
          then "(" ^ resString ^ ")"
          else resString
        )
   in
 
   (match tree with
-  | Binary(_, _, _) -> print_string (printAST_aux tree (getOp tree));
+  | Binary(op, l, r) -> print_string ((printAST_aux l op) ^ (opToString op) ^ (printAST_aux r op));
   | _ -> print_string (printAST_aux tree Plus) );
 
   print_newline();
