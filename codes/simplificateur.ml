@@ -49,7 +49,6 @@ let parse tokenList =
 
 
 
-
 (* ============================================= *)
 (* ============ Fonction simplify ============== *)
 (* ============================================= *)
@@ -92,26 +91,46 @@ let simplify tree =
 (* ============ Fonction printAST ============== *)
 (* ============================================= *)
 
+(*let rec tree_fold_infix_left func init tree =
+  match tree with
+  | Nil -> init
+  | Node(v, l, r) ->
+     let left_val = tree_fold_infix_left func init l in
+     let root_val = func left_val v in
+     tree_fold_infix_left func root_val r
+;;*)
 
-let printAST tree = 
-  let rec printAST_aux tree =
+let printAST tree =
+
+  let string_of_char = String.make 1 in
+  let opToString op =
+    (match op with
+     | Plus -> " + "
+     | Minus -> " - "
+     | Mult -> " x "
+     | Div -> " / ") in
+  let getOp tree = match tree with Binary(op, l, r) -> op | _ -> failwith("Error in printAST() in getOp()")in
+  
+  let rec printAST_aux tree previousOp =
     match tree with
-    | Var(v) -> print_char v
-    | Cst(n) -> print_int n
-    | Unary(t) -> print_char '~'; printAST_aux(t);
-    | Binary(operator, l, r) ->
+    | Var(v) -> string_of_char v
+    | Cst(n) -> string_of_int n
+    | Unary(t) -> "~"^(printAST_aux t previousOp)
+    | Binary(op, l, r) ->
        (
-         printAST_aux l;
-         
-         (match operator with
-          | Plus -> print_string " + "
-          | Minus -> print_string " - "
-          | Mult -> print_string " x "
-          | Div -> print_string " / ");
-         
-         printAST_aux r;
-       );
+         let resString = 
+           (printAST_aux l op) ^ (opToString op) ^ (printAST_aux r op)
+         in
+
+         if(op != previousOp)
+         then "(" ^ resString ^ ")"
+         else resString
+       )
   in
-  printAST_aux tree;
+
+  (match tree with
+  | Binary(_, _, _) -> print_string (printAST_aux tree (getOp tree));
+  | _ -> print_string (printAST_aux tree Plus) );
+
   print_newline();
 ;;

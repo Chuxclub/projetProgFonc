@@ -20,3 +20,30 @@
   
   parse_aux tokenList []
 ;;*)
+
+let printAST tree =
+  
+  let rec printAST_aux tree =
+    match tree with
+    | Var(v) -> print_char v
+    | Cst(n) -> print_int n
+    | Unary(t) -> print_char '~'; printAST_aux(t);
+    | Binary(operator, l, r) ->
+       (
+         print_char '(';
+         printAST_aux l;
+         
+         (match operator with
+          | Plus -> print_string " + "
+          | Minus -> print_string " - "
+          | Mult -> print_string " x "
+          | Div -> print_string " / ");
+         
+         printAST_aux r;
+         print_char ')';
+       );
+  in
+  
+  printAST_aux tree;
+  print_newline();
+;;
