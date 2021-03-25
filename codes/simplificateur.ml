@@ -55,17 +55,36 @@ let parse tokenList =
 (* ============================================= *)
 
 let simplify tree =
-  let rec simplify_aux tree opToFunc =
+
+  let simplificationRules tree =
+    let opToFunc op =
+      match op with
+      | Plus -> ( + )
+      | Minus -> ( - )
+      | Mult -> ( * )
+      | Div -> ( / )
+    in
+    
     match tree with
-    | Binary(operator, Cst(a), Cst(b)) -> Cst(((opToFunc operator) a b))
+    | Binary(op, Cst(a), Cst(b)) -> Cst((opToFunc op) a b)
+    | Binary(Plus, Cst(0), Var(v)) -> Var(v)
+    | Binary(Plus, Var(v), Cst(0)) -> Var(v)
+    | Binary(Minus, Var(x), Var(y)) -> if(x = y) then Cst(0) else tree                 
+    | Binary(Mult, Cst(1), Var(v)) -> Var(v)
+    | Binary(Mult, Var(v), Cst(1)) -> Var(v)
+    | Binary(Mult, Cst(0), Var(v)) -> Cst(0)
+    | Binary(Mult, Var(v), Cst(0)) -> Cst(0)
+    | Binary(Div, Var(x), Var(y)) -> if(x = y) then Cst(1) else tree
     | _ -> tree
   in
 
-  simplify_aux tree (fun op -> match op with
-                               | Plus -> ( + )
-                               | Minus -> ( - )
-                               | Mult -> ( * )
-                               | Div -> ( / ))
+  let rec simplify_aux tree rules =
+    match tree with
+    | Binary(op, l, r) -> rules (Binary(op, simplify_aux l rules, simplify_aux r rules))
+    | _ -> tree
+  in
+
+  simplify_aux tree simplificationRules
 ;;
 
 
