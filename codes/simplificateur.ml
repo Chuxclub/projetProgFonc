@@ -27,41 +27,46 @@ type tree =
 
 
 (* ============================================= *)
-(* ============== Fonction Parse =============== *)
+(* ============== Fonction parse =============== *)
 (* ============================================= *)
 
 let parse tokenList =
-  let rec parse_aux tokenList treeStack =  
-    match tokenList with
-    | [] -> failwith "Error in parse() in simplificateur.ml. Parameter tokenList is empty!"
-    | hd::tl ->
-       match hd with
-       | Variable(v) -> parse_aux tl ((Var(v))::treeStack)
-       | Number(n) -> parse_aux tl ((Cst(n))::treeStack)
-       | End -> List.hd treeStack
-              
-       | Add -> let (a,b) = ((List.hd treeStack), (List.hd (List.tl treeStack))) in
-                let newTreeStack = List.tl (List.tl treeStack) in
-                parse_aux tl ((Binary(Plus, b, a))::newTreeStack)
-                
-       | Subtract -> let (a,b) = ((List.hd treeStack), (List.hd (List.tl treeStack))) in
-                     let newTreeStack = List.tl (List.tl treeStack) in
-                     parse_aux tl ((Binary(Minus, b, a))::newTreeStack)
-                     
-       | Multiply -> let (a,b) = ((List.hd treeStack), (List.hd (List.tl treeStack))) in
-                     let newTreeStack = List.tl (List.tl treeStack) in
-                     parse_aux tl ((Binary(Mult, b, a))::newTreeStack)
-                     
-       | Divide -> let (a,b) = ((List.hd treeStack), (List.hd (List.tl treeStack))) in
-                   let newTreeStack = List.tl (List.tl treeStack) in
-                   parse_aux tl ((Binary(Div, b, a))::newTreeStack)
-                   
-       | Minus -> parse_aux tl ((Unary(List.hd treeStack))::(List.tl treeStack))
-  in
-  
-  parse_aux tokenList []
+  hd( fold_left (
+          fun treeStack elem ->
+          match elem with
+          | End -> treeStack
+          | Variable(v) -> Var(v)::treeStack
+          | Number(n) -> Cst(n)::treeStack
+          | Minus -> Unary(hd treeStack)::(tl treeStack)
+          | Add -> Binary(Plus, hd (tl treeStack), hd treeStack)::(tl (tl treeStack))
+          | Subtract -> Binary(Minus, hd (tl treeStack), hd treeStack)::(tl (tl treeStack))
+          | Multiply -> Binary(Mult, hd (tl treeStack), hd treeStack)::(tl (tl treeStack))
+          | Divide -> Binary(Div, hd (tl treeStack), hd treeStack)::(tl (tl treeStack))
+        )
+        
+        [] tokenList)
 ;;
 
+
+
+
+(* ============================================= *)
+(* ============ Fonction simplify ============== *)
+(* ============================================= *)
+
+let simplify tree =
+  let rec simplify_aux tree opToFunc =
+    match tree with
+    | Binary(operator, Cst(a), Cst(b)) -> Cst(((opToFunc operator) a b))
+    | _ -> tree
+  in
+
+  simplify_aux tree (fun op -> match op with
+                               | Plus -> ( + )
+                               | Minus -> ( - )
+                               | Mult -> ( * )
+                               | Div -> ( / ))
+;;
 
 
 (* ============================================= *)

@@ -16,6 +16,6 @@ open Expression_scanner;;
 (* ============== Fonction Parse =============== *)
 (* ============================================= *)
 
-let tokenListTest1 = string_to_token_list "13 2 5 * 1 0 / - + ;";;
+let tokenListTest1 = string_to_token_list "13 2 5 * 4 2 / - + ;";;
 let treeTest1 = parse tokenListTest1;;
 printAST treeTest1;;

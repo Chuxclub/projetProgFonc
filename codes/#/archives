@@ -1,0 +1,22 @@
+(*let parse tokenList =
+  let rec parse_aux tokenList treeStack =  
+    match tokenList with
+    | [] -> failwith "Error in parse() in simplificateur.ml. Parameter tokenList is empty!"
+    | hd::tl ->
+       match hd with
+       | End -> List.hd treeStack
+       | Variable(v) -> parse_aux tl ((Var(v))::treeStack)
+       | Number(n) -> parse_aux tl ((Cst(n))::treeStack)
+       | Minus -> parse_aux tl ((Unary(List.hd treeStack))::(List.tl treeStack))
+       | _ -> let (a,b) = ((List.hd treeStack), (List.hd (List.tl treeStack))) in
+              let newTreeStack = List.tl (List.tl treeStack) in
+              match hd with
+              | Add -> parse_aux tl ((Binary(Plus, b, a))::newTreeStack)
+              | Subtract -> parse_aux tl ((Binary(Minus, b, a))::newTreeStack)
+              | Multiply -> parse_aux tl ((Binary(Mult, b, a))::newTreeStack)
+              | Divide -> parse_aux tl ((Binary(Div, b, a))::newTreeStack)
+              | _ -> failwith "Unexpected error in parse() in simplificateur.ml. Unknown token!"
+  in
+  
+  parse_aux tokenList []
+;;*)
