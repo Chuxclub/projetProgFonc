@@ -8,8 +8,7 @@
 open Expression_scanner;;
 open List;;
 
-#use "simplificateur.ml";;
-
+#use "simplificateurLib.ml";;
 
 
 
@@ -29,3 +28,17 @@ let treeTest2 = parse tokenListTest2;;
 printAST treeTest2;;
 let treeTest2Simplified = simplify treeTest2;;
 printAST treeTest2Simplified;;
+
+
+let tokenListTest3 = string_to_token_list "x 0 + 1 * x / ;";;
+let treeTest3 = parse tokenListTest3;;
+printAST treeTest3;;
+let treeTest3Simplified = simplify treeTest3;;
+printAST treeTest3Simplified;;
+
+
+let tokenListTest4 = string_to_token_list "2 ~ x 2 ~ + 3 4 + ~ / * ;";;
+let treeTest4 = parse tokenListTest4;;
+printAST treeTest4;;
+let treeTest4Simplified = simplify treeTest4;;
+printAST treeTest4Simplified;;
