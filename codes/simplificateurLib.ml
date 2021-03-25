@@ -122,7 +122,7 @@ let printAST tree =
   in
 
   (match tree with
-  | Binary(op, l, r) -> print_string ((printAST_aux l op) ^ (opToString op) ^ (printAST_aux r op));
+  | Binary(op, l, r) -> print_string ((printAST_aux l op) ^ (opToString op) ^ (printAST_aux r op))
   | _ -> print_string (printAST_aux tree Plus) );
 
   print_newline();
