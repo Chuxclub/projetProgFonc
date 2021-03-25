@@ -82,7 +82,7 @@ let simplify tree =
   let rec simplify_aux tree rules =
     match tree with
     | Binary(op, l, r) -> rules (Binary(op, simplify_aux l rules, simplify_aux r rules))
-    | Unary(t) -> rules (simplify_aux t rules)
+    | Unary(t) -> Unary(simplify_aux t rules)
     | _ -> tree
   in
 
