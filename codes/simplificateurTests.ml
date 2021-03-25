@@ -42,3 +42,17 @@ let treeTest4 = parse tokenListTest4;;
 printAST treeTest4;;
 let treeTest4Simplified = simplify treeTest4;;
 printAST treeTest4Simplified;;
+
+
+let tokenListTest5 = string_to_token_list "a b * c * e f + * ;";;
+let treeTest5 = parse tokenListTest5;;
+printAST treeTest5;;
+let treeTest5Simplified = simplify treeTest5;;
+printAST treeTest5Simplified;;
+
+
+let tokenListTest6 = string_to_token_list "a b c * + ;";;
+let treeTest6 = parse tokenListTest6;;
+printAST treeTest6;;
+let treeTest6Simplified = simplify treeTest6;;
+printAST treeTest6Simplified;;
