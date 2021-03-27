@@ -1,27 +1,27 @@
 # Projet de Programmation Fonctionnelle
 
-##Objectif: 
+## Objectif: 
 Implanter un parser d'expressions mathématiques simple sur la base de la notation polonaise inversée
 
 
-##Deadline: 
+## Deadline: 
 09/04/2021
 
 
-##Auteurs de ce projet:
+## Auteurs de ce projet:
 Florian Legendre & Esteban Mauricio
 
 
-##Comment utiliser notre programme:
+## Comment utiliser notre programme:
 1) Ouvrir un terminal Bash
 2) Aller dans le dossier codes/
 3) Entrer ./simplificateur
 4) Entrer une chaîne de caractère correspondant à une **expression en notation polonaise inversée**
    Ex. 2 ~ x 2 ~ + 3 4 + ~ / * ;
-5) Appuyer sur Entrée __puis__ sur Ctrl+D
+5) Appuyer sur Entrée _puis_ sur Ctrl+D
 
 
-##Hiérarchie de fichiers:
+## Hiérarchie de fichiers:
 .
 ├── codes
 │   ├── #
