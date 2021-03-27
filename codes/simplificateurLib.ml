@@ -5,6 +5,8 @@
                           simplificateurTests.ml (ce module utilisant 
                           les fonctions définies ici) *)
 
+open List;;
+open Expression_scanner;;
 
 
 (* ============================================= *)
