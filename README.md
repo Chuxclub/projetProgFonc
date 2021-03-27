@@ -22,6 +22,7 @@ Florian Legendre & Esteban Mauricio
 
 
 ## Hiérarchie de fichiers:
+```
 .
 ├── codes
 │   ├── #
@@ -68,4 +69,4 @@ Florian Legendre & Esteban Mauricio
 └── README.md
 
 14 directories, 29 files
-
+```
