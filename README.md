@@ -14,7 +14,7 @@ Florian Legendre & Esteban Mauricio
 
 ## Comment utiliser notre programme:
 1) Ouvrir un terminal Bash
-2) Aller dans le dossier codes/
+2) Aller dans le dossier projetProgFonc/
 3) Entrer ./simplificateur
 4) Entrer une chaîne de caractère correspondant à une **expression en notation polonaise inversée**
    Ex. 2 ~ x 2 ~ + 3 4 + ~ / * ;
