@@ -27,7 +27,6 @@ Florian Legendre & Esteban Mauricio
 ├── codes
 │   ├── #
 │   │   └── archives
-│   ├── simplificateur
 │   ├── simplificateurLib.ml
 │   ├── simplificateurLib.ml~
 │   ├── simplificateur.ml
@@ -66,7 +65,9 @@ Florian Legendre & Esteban Mauricio
 │       └── ocaml-4.11.1
 │           ├── expression_scanner.cmi
 │           └── expression_scanner.cmo
-└── README.md
+├── README.md
+└── simplificateur
 
 14 directories, 29 files
+
 ```
